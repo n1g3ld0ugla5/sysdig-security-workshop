@@ -25,10 +25,7 @@ Update the repository:
 ```
 sudo apt-get update
 ```
-Download and install VirtualBox by running:
-```
-sudo apt-get install virtualbox
-```
+
 
 Download and install VirtualBox by running:
 ```
