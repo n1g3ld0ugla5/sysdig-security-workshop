@@ -12,8 +12,8 @@ Ubuntu (or a derivative), ```arm64``` on a machine running 64-bit ARM
 ## Setting-up the MiniKube Environment
 
 ```
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
-sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
 
 If you're not using ```amd64```, check out the MiniKube Install Docs: <br/>
