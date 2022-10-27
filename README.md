@@ -20,15 +20,38 @@ If you're not using ```amd64```, check out the MiniKube Install Docs: <br/>
 https://minikube.sigs.k8s.io/docs/start/
 
 ## Start your cluster
-From a terminal with administrator access (but not logged in as root), run:
 
+Update the repository:
+```
+sudo apt-get update
+```
+Download and install VirtualBox by running:
+```
+sudo apt-get install virtualbox
+```
+
+Download and install VirtualBox by running:
+```
+sudo apt-get install virtualbox
+```
+From a terminal with administrator access (but not logged in as root), run:
 ```
 minikube start --driver=virtualbox
 ```
 
+Install kubectl
+```
+sudo snap install kubectl --classic
+```
+
+Display list of contexts
+```
+kubectl config get-contexts 
+```
+
 Check that all pods are running:
 ```
-kubectl get pods --all-namespaces
+kubectl get pods -A
 ```
 
 Add the Falco Helm repository and update the local Helm repository cache:
