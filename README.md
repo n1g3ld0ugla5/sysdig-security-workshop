@@ -9,32 +9,45 @@ dpkg --print-architecture
 This will be ```armhf``` on a machine running 32-bit ARM Debian <br/>
 Ubuntu (or a derivative), ```arm64``` on a machine running 64-bit ARM
 
-## Setting-up the MiniKube Environment
-
-```
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-```
-
-If you're not using ```amd64```, check out the MiniKube Install Docs: <br/>
-https://minikube.sigs.k8s.io/docs/start/
-
-## Start your cluster
+## Creating the Environment
 
 Update the repository:
 ```
 sudo apt-get update
 ```
 
+Run the below command:
+```
+curl https://raw.githubusercontent.com/n1g3ld0ugla5/CIS-Compliant-Kubernetes/main/master.sh | bash
+```
 
-Download and install VirtualBox by running:
+After this step, check that all pods are created but not running <br/>
+This is because we have yet to install our networking layer:
+
 ```
-sudo apt-get install virtualbox
+kubectl get pods -A
 ```
-From a terminal with administrator access (but not logged in as root), run:
+
+If you joined the nodes from the above steps, you should be able to confirm their status:
+
 ```
-minikube start --driver=virtualbox
+kubectl get nodes -o wide
 ```
+
+## Creating a zero-trust network architecture
+
+Project Calico is a Pure Layer 3 Approach to Virtual Networking for Highly Scalable Data Centers. <br/>
+https://github.com/projectcalico <br/>
+<br/>
+
+This also packages the admission controller which is required to prevent workloads from being created <br/>
+https://github.com/open-policy-agent/gatekeeper
+
+
+```
+curl https://raw.githubusercontent.com/n1g3ld0ugla5/CIS-Compliant-Kubernetes/main/tools.sh | bash
+```
+
 
 Install kubectl
 ```
