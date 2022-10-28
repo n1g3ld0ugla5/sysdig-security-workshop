@@ -9,7 +9,7 @@ dpkg --print-architecture
 This will be ```armhf``` on a machine running 32-bit ARM Debian <br/>
 Ubuntu (or a derivative), ```arm64``` on a machine running 64-bit ARM
 
-## Creating the Environment
+#### Creating a K8s environment on an EC2 instance
 
 Update the repository:
 ```
@@ -34,16 +34,6 @@ If you joined the nodes from the above steps, you should be able to confirm thei
 kubectl get nodes -o wide
 ```
 
-## Creating a zero-trust network architecture
-
-Project Calico is a Pure Layer 3 Approach to Virtual Networking for Highly Scalable Data Centers. <br/>
-https://github.com/projectcalico <br/>
-<br/>
-
-This also packages the admission controller which is required to prevent workloads from being created <br/>
-https://github.com/open-policy-agent/gatekeeper
-
-
 ```
 curl https://raw.githubusercontent.com/n1g3ld0ugla5/CIS-Compliant-Kubernetes/main/tools.sh | bash
 ```
@@ -64,25 +54,26 @@ Check that all pods are running:
 kubectl get pods -A
 ```
 
-Add the Falco Helm repository and update the local Helm repository cache:
+
+## Installing Falco
+
+Normal workflow <br/>
+https://falco.org/docs/getting-started/running/ <br/>
+<br/>
+Apple Silicon workflow <br/>
+https://falco.org/blog/falco-apple-silicon/
+
+## Using Falco
+
+This will trigger the deployment of Falco on your Kubernetes cluster. <br/>
+The falco-driver-loader init container will perform all the steps required to build the eBPF probe <br/>
+(hint: the kernel headers are already included in the VM) as you can see from the output snippet:
 ```
-helm repo add falcosecurity https://falcosecurity.github.io/charts
-helm repo update
+kubectl logs -n falco $(kubectl get po -n falco -l app.kubernetes.io/name=falco -o name) -c falco-driver-loader
 ```
 
-## Install Falco using Helm:
-
-With kernel module:
+And then, the falco pod should be running:
 ```
-helm install falco --set tty=true falcosecurity/falco
+kubectl logs -n falco $(kubectl get po -n falco -l app.kubernetes.io/name=falco -o name) -c falco
 ```
 
-The output is similar to:
-```
-NAME: falco
-LAST DEPLOYED: Mon Oct 24 16:55:51 2022
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-```
