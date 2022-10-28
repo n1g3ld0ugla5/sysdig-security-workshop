@@ -58,7 +58,7 @@ kubectl get pods -A
 ## Installing Falco
 
 Normal workflow <br/>
-https://falco.org/docs/getting-started/running/ <br/>
+https://falco.org/docs/getting-started/installation/ <br/>
 <br/>
 Apple Silicon workflow <br/>
 https://falco.org/blog/falco-apple-silicon/
@@ -77,3 +77,27 @@ And then, the falco pod should be running:
 kubectl logs -n falco $(kubectl get po -n falco -l app.kubernetes.io/name=falco -o name) -c falco
 ```
 
+display list of contexts
+```
+kubectl config get-contexts                          
+```
+
+display the current-context
+```
+kubectl config current-context 
+```
+
+set the default context to my-cluster-name
+```
+kubectl config use-context my-cluster-name           
+```
+
+## Running Falco
+
+These commands should apply to all environments: <br/>
+https://falco.org/docs/getting-started/running/
+
+You can view the Falco logs using journalctl.
+```
+journalctl -fu falco
+```
